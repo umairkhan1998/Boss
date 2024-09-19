@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWO STARS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            overflow-x: hidden;
+        }
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 4s ease-in-out infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 2rem;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover, nav ul li a:focus {
+            color: var(--primary-color);
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        .hero {
+            background: rgba(0, 123, 255, 0.7);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+            margin-top: 60px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            padding: 4rem 5%;
+        }
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .services-grid, .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .service-item, .why-us-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .service-item:hover, .why-us-item:hover,
+        .service-item:focus, .why-us-item:focus {
+            transform: translateY(-5px);
+        }
+        .service-icon, .why-us-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .service-details, .why-us-details {
+            display: none;
+            margin-top: 1rem;
+        }
+        .service-details img, .why-us-details img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        footer {
+            background-color: rgba(108, 117, 125, 0.9);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 1rem 0;
+            }
+            nav ul.show {
+                display: flex;
+            }
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .services-grid, .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero {
+                padding: 4rem 1rem;
+            }
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">TWO STARS</div>
+            <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Welcome to TWO STARS</h1>
+        <p>Delivering exceptional services across various sectors. Our expertise spans electrical, plumbing, construction, solar solutions, and more.</p>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="service-icon"><i class="fas fa-building"></i></div>
+                <h3>Building & Houses Construction</h3>
+                <p>Quality construction services for residential and commercial projects.</p>
+                <div class="service-details">
+                    <img src="Houses.png" alt="Building Construction">
+                    <p>Our experienced team handles all aspects of construction, from planning to execution, ensuring high-quality results for your project.</p>
+                </div>
+            </div>
+            <div class="service-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Electrical Services</h3>
+                <p>Comprehensive electrical solutions for all your needs.</p>
+                <div class="service-details">
+                    <img src="Electrical.png" alt="Electrical Services">
+                    <p>We provide expert electrical installations, maintenance, and repair services for both residential and commercial properties.</p>
+                </div>
+            </div>
+            <div class="service-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="service-icon"><i class="fas fa-tools"></i></div>
+                <h3>Plumbing Services</h3>
+                <p>Expert plumbing installations and repairs.</p>
+                <div class="service-details">
+                    <img src="plumb.png" alt="Plumbing Services">
+                    <p>From installations to emergency repairs, we provide reliable plumbing services for homes and businesses.</p>
+                </div>
+            </div>
+            <div class="service-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="service-icon"><i class="fas fa-solar-panel"></i></div>
+                <h3>Solar Solutions</h3>
+                <p>Eco-friendly solar energy solutions for your home or business.</p>
+                <div class="service-details">
+                    <img src="solar.png" alt="Solar Solutions">
+                    <p>Switch to renewable energy with our reliable solar panel installation and maintenance services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us">
+        <h2>Why Us</h2>
+        <div class="why-us-grid">
+            <div class="why-us-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="why-us-icon"><i class="fas fa-award"></i></div>
+                <h3>Expertise & Experience</h3>
+                <p>Years of experience delivering top-notch services.</p>
+                <div class="why-us-details">
+                    <img src="expert.png" alt="Expertise & Experience">
+                    <p>We bring a wealth of experience to every project, ensuring quality and reliability in all our services.</p>
+                </div>
+            </div>
+            <div class="why-us-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="why-us-icon"><i class="fas fa-star"></i></div>
+                <h3>Commitment to Quality</h3>
+                <p>Dedicated to providing high-quality services that meet your expectations.</p>
+                <div class="why-us-details">
+                    <img src="commitment.png" alt="Commitment to Quality">
+                    <p>Our commitment to quality is at the core of everything we do, ensuring your satisfaction with every service.</p>
+                </div>
+            </div>
+            <div class="why-us-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="why-us-icon"><i class="fas fa-users"></i></div>
+                <h3>Customer-Focused Approach</h3>
+                <p>Tailored solutions to meet your specific needs and requirements.</p>
+                <div class="why-us-details">
+                    <img src="focuse.png" alt="Customer-Focused Approach">
+                    <p>We work closely with our clients to understand their unique needs and deliver customized solutions that exceed expectations.</p>
+                </div>
+            </div>
+            <div class="why-us-item" tabindex="0" onclick="toggleDetails(this)" onkeypress="handleKeyPress(event, this)">
+                <div class="why-us-icon"><i class="fas fa-briefcase"></i></div>
+                <h3>Professional Team</h3>
+                <p>Highly skilled professionals who are dedicated to delivering excellent results.</p>
+                <div class="why-us-details">
+                    <img src="PRO_Team.png" alt="Professional Team">
+                    <p>Our team is made up of qualified professionals who bring their expertise and passion to every project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p><strong>Phone:</strong> +123-456-7890</p>
+            <p><strong>Email:</strong> contact@twostars.com</p>
+            <p><strong>Address:</strong> 1234 Street Name, City, Country</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TWO STARS. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('show');
+        }
+
+        function toggleDetails(element) {
+            const details = element.querySelector('.why-us-details, .service-details');
+            if (details.style.display === 'block') {
+                details.style.display = 'none';
+            } else {
+                details.style.display = 'block';
+            }
+        }
+
+        function handleKeyPress(event, element) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                toggleDetails(element);
+            }
+        }
+    </script>
+</body>
+</html>
